@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Divider, Slider, Button} from '@material-ui/core'
 import './styles/styles.css'
-import InputRange from 'react-input-range';
 
 function App() {
 
@@ -10,7 +9,6 @@ function App() {
   const [rotation, setRotation] = useState(0)
   const [border, setBorder] = useState (0)
   const [opacity, setOpacity] = useState (.5)
-
 
   //SET WIDTH
   
@@ -41,20 +39,6 @@ const decreaseHeight = () => {
 }
 
 
-//SET ROTATION 
-
-const rotationRight = () => {
-  const getBox = document.getElementById('box')
-  const newRotation = setRotation(rotation + 5)
-  getBox.style.rotate = newRotation
-}
-
-const rotationLeft = () => {
-  const getBox = document.getElementById('box')
-  const newRotation = setRotation(rotation - 5)
-  getBox.style.rotate = newRotation
-}
-
 //HANDLE BORDER
 
 const increaseBorder = () => {
@@ -68,23 +52,6 @@ const decreaseBorder = () => {
   const newBorder = setBorder(border - 5)
   getBox.style.borderRadius = newBorder
 }
-
-//HANDLE OPACITY
-
-const increaseOpacity= () => {
-  const getBox = document.getElementById('box')
-  const newOpacity = setOpacity(opacity + .1)
-  getBox.style.borderRadius = newOpacity
-}
-
-const decreaseOpacity = () => {
-  const getBox = document.getElementById('box')
-  const newOpacity = setOpacity(opacity - .1)
-  getBox.style.borderRadius = newOpacity
-}
-
-
-
 
   return  (
     <div className="main-container">
@@ -113,8 +80,12 @@ const decreaseOpacity = () => {
         <Divider orientation='vertical' style={{width: 1, height: 250, marginTop: 12}}/>
         <div className="style-container">
           <h4>Rotation</h4>
-          <Button variant='contained' style={{margin: 10}} onClick={rotationRight}>+</Button>
-          <Button variant='contained' style={{margin: 10}} onClick={rotationLeft}>-</Button>
+            <input type="range" name="handle-rotation" id="handle-rotation"
+            min='0'
+            max='360'
+            defaultValue='0'
+            onChange={(event) => {setRotation(Number(event.target.value))}}
+            />
         </div>
         <Divider orientation='vertical' style={{width: 1, height: 250, marginTop: 12}}/>
         <div className="style-container">
@@ -125,8 +96,16 @@ const decreaseOpacity = () => {
         <Divider orientation='vertical' style={{width: 1, height: 250, marginTop: 12}}/>
       <div className="style-container">
           <h4>Opacity</h4>
-          <Button variant='contained' style={{margin: 10}} onClick={increaseOpacity}>+</Button>
-          <Button variant='contained' style={{margin: 10}} onClick={decreaseOpacity}>-</Button>
+          <input
+            type='range'
+            min='.1'
+            max='1'
+            step='.1'
+            defaultValue={opacity}
+            onChange={(event) => {
+              setOpacity(Number(event.target.value));
+            }}
+          />
         </div>
       </div>
     </div>
